@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\UnrealDegenerate.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{414C5FEA-5B40-4F1F-B851-6920FE73B8B3}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\UnrealDegenerate.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\UnrealDegenerateEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{1A7E50B1-982E-444D-8ECD-64EBDA29BBB8}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\UnrealDegenerate">
+      <UniqueIdentifier>{A51987F6-BE2F-480A-A60C-A3C75F92EBDE}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\UnrealDegenerate\UnrealDegenerate.Build.cs">
+      <Filter>Source\UnrealDegenerate</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\UnrealDegenerate\UnrealDegenerate.cpp">
+      <Filter>Source\UnrealDegenerate</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnrealDegenerate\UnrealDegenerate.h">
+      <Filter>Source\UnrealDegenerate</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UnrealDegenerate\UnrealDegenerateGameModeBase.cpp">
+      <Filter>Source\UnrealDegenerate</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnrealDegenerate\UnrealDegenerateGameModeBase.h">
+      <Filter>Source\UnrealDegenerate</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
