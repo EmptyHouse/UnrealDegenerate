@@ -1,2 +1,0 @@
-C:\Users\Thurston\Documents\GitHub\UnrealDegenerate\UnrealDegenerate\Intermediate\Build\Win64\UE4Editor\Development\UnrealDegenerate\Definitions.UnrealDegenerate.h
-C:\Users\Thurston\Documents\GitHub\UnrealDegenerate\UnrealDegenerate\Source\UnrealDegenerate\UnrealDegenerate.h

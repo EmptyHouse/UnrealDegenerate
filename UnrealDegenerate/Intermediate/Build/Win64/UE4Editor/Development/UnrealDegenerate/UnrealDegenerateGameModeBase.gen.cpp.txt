@@ -1,9 +1,0 @@
-C:\Users\Thurston\Documents\GitHub\UnrealDegenerate\UnrealDegenerate\Intermediate\Build\Win64\UE4Editor\Development\UnrealDegenerate\Definitions.UnrealDegenerate.h
-C:\Program Files\Epic Games\UE_4.25\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-C:\Program Files\Epic Games\UE_4.25\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
-C:\Users\Thurston\Documents\GitHub\UnrealDegenerate\UnrealDegenerate\Source\UnrealDegenerate/UnrealDegenerateGameModeBase.h
-C:\Program Files\Epic Games\UE_4.25\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
-C:\Program Files\Epic Games\UE_4.25\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
-C:\Program Files\Epic Games\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ServerStatReplicator.generated.h
-C:\Program Files\Epic Games\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameModeBase.generated.h
-C:\Users\Thurston\Documents\GitHub\UnrealDegenerate\UnrealDegenerate\Intermediate\Build\Win64\UE4Editor\Inc\UnrealDegenerate\UnrealDegenerateGameModeBase.generated.h
