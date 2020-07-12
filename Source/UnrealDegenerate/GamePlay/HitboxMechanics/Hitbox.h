@@ -23,6 +23,8 @@ public:
 	// Sets default values for this actor's properties
 	AHitbox();
 
+	virtual void Tick(float DeltaSeconds) override;
+
 	/* Updates the Hitbox bounds from our actor location and adjusted scale */
 	void UpdateHitboxBoundsBasedOnPositionAndScale();
 
@@ -37,8 +39,8 @@ private:
 
 public:
 	/* The assigned type of our hitbox */
-	UPROPERTY(EditAnywhere, Category = "Hitbox")
-	TEnumAsByte<EHitboxType> AssignedHitbox;
+	UPROPERTY(EditDefaultsOnly, Category = "Hitbox")
+	TEnumAsByte<EHitboxType> AssignedHitboxType;
 
 private:
 	/* The box2d bounds of our collider */
