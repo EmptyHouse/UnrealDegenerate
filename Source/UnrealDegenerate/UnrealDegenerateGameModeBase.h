@@ -13,5 +13,16 @@ UCLASS()
 class UNREALDEGENERATE_API AUnrealDegenerateGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+
+	UFUNCTION(BlueprintPure)
+	FVector GetPlaneConstraintVector() const {
+		return PlaneConstraintVector;
+	}
+
+private:
+
+	const FVector PlaneConstraintVector = FVector(1.f, 0.f, 1.f);
 	
 };

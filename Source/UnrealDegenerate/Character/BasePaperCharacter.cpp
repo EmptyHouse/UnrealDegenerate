@@ -13,16 +13,20 @@ ABasePaperCharacter::ABasePaperCharacter()
 	SetRootComponent(BoxCollider);
 
 	SpriteFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Sprite"));
-
 	FAttachmentTransformRules AttachmentRules(EAttachmentRule::KeepWorld, false);
 	SpriteFlipbook->AttachToComponent(BoxCollider, AttachmentRules);
+
+	CharacterMovementComponent = CreateDefaultSubobject<UBaseCharacterMovementComponent>(TEXT("Movement Component"));
+	CharacterMovementComponent->SetPlaneConstraintNormal(FVector(1.f, 0.f, 1.f));
+	CharacterMovementComponent->SetPlaneConstraintEnabled(true);
 }
 
 // Called when the game starts or when spawned
 void ABasePaperCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	BoxCollider->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 }
 
 // Called every frame

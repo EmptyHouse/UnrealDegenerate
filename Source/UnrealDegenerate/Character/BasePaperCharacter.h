@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "BaseCharacterMovementComponent.h"
 #include "PaperFlipbookComponent.h"
 #include "Components/BoxComponent.h"
 #include "BasePaperCharacter.generated.h"
@@ -24,6 +25,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UPaperFlipbookComponent* SpriteFlipbook;
+
+	UPROPERTY(EditAnywhere)
+	UBaseCharacterMovementComponent* CharacterMovementComponent;
 
 protected:
 	// Called when the game starts or when spawned
