@@ -14,15 +14,7 @@ void UBaseCharacterMovementComponent::TickComponent(float DeltaTime, enum ELevel
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	UpdateComponentVelocity();
-	UpdatePosition(DeltaTime);
-}
-
-void UBaseCharacterMovementComponent::UpdatePosition(float DeltaTime)
-{
-	FVector VelocityToUse = Velocity;
-	const FVector CurrentPosition = UpdatedComponent->GetComponentLocation();
-	FVector Target = CurrentPosition + (Velocity * DeltaTime);
-	FQuat fuck;
-	UpdatedComponent->MoveComponent(Target, fuck, false);
-	ConsumeInputVector();
+	UE_LOG(LogTemp, Warning, TEXT("%f"), Velocity.X);
+	UE_LOG(LogTemp, Warning, TEXT("%f"), UpdatedComponent->ComponentVelocity.X);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *UpdatedComponent->GetFName().ToString());
 }
