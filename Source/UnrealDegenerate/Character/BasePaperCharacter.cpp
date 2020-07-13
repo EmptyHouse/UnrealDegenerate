@@ -33,7 +33,8 @@ void ABasePaperCharacter::BeginPlay()
 void ABasePaperCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	CharacterMovementComponent->Velocity = FVector::OneVector;
+	CharacterMovementComponent->UpdateComponentVelocity();
 }
 
 // Called to bind functionality to input

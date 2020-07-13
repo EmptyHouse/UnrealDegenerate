@@ -17,5 +17,7 @@ class UNREALDEGENERATE_API UBaseCharacterMovementComponent : public UPawnMovemen
 public:
 
 	UBaseCharacterMovementComponent(const FObjectInitializer& ObjectInitializer);
+
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 };
