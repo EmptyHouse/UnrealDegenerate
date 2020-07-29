@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputCoreTypes.h"
 #include "InputTypes.generated.h"
 
 UENUM(BlueprintType)
@@ -19,6 +20,8 @@ enum class InputActions : uint8
 	LightAttack UMETA(DisplayName = "Light Attack"),
 
 	MediumAttack UMETA(DisplayName = "Medium Attack"),
+
+	HeavyAttack UMETA(DisplayName = "Heavy Attack"),
 
 	Special UMETA(Display Name = "Special")
 };

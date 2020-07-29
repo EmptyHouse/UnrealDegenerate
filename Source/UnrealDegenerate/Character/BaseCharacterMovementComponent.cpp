@@ -23,6 +23,6 @@ void UBaseCharacterMovementComponent::UpdatePosition(float DeltaTime)
 	const FVector CurrentPosition = UpdatedComponent->GetComponentLocation();
 	FVector Target = CurrentPosition + (Velocity * DeltaTime);
 	FQuat fuck;
-	UpdatedComponent->MoveComponent(Target, fuck, false);
+	//UpdatedComponent->MoveComponent(Target, fuck, false);
 	ConsumeInputVector();
 }
