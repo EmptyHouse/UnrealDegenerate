@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "GamePlay/HitboxMechanics/Hitbox.h"
 #include "UnrealDegenerateGameModeBase.generated.h"
 
 /**
@@ -17,12 +18,16 @@ class UNREALDEGENERATE_API AUnrealDegenerateGameModeBase : public AGameModeBase
 public:
 
 	UFUNCTION(BlueprintPure)
-	FVector GetPlaneConstraintVector() const {
+		FVector GetPlaneConstraintVector() const {
 		return PlaneConstraintVector;
 	}
+
+	/* Returns an instance of the Hitbox Manager that is being used for this round */
+	//UHitboxManager* GetHitboxManager() { return HitboxManager; }
 
 private:
 
 	const FVector PlaneConstraintVector = FVector(1.f, 0.f, 1.f);
+	//UHitboxManager* HitboxManager = NewObject<UHitboxManager>();
 	
 };
