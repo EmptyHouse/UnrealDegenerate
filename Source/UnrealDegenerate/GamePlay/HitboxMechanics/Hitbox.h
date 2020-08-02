@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Math/Box2D.h"
-#include "GameFramework/Actor.h"
+#include "Components/SceneComponent.h"
 #include "Hitbox.generated.h"
 
 
-DECLARE_DELEGATE_OneParam(FIntersectHitbox, AHitbox*);
+DECLARE_DELEGATE_OneParam(FIntersectHitbox, UHitbox*);
 
 UENUM()
 enum EHitboxType
@@ -25,6 +25,7 @@ class UHittable : public UInterface
 	GENERATED_BODY()
 };
 
+
 /**
  *
  */
@@ -36,42 +37,37 @@ class UNREALDEGENERATE_API IHittable
 public:
 	/* This function will be called whenever a valid hitbox overlap has begun */
 	UFUNCTION(Category = "Hitbox")
-	virtual void OnHitboxOverlapBegin(AHitbox* OwnedHitbox, AHitbox* OtherHitbox) = 0;
+	virtual void OnHitboxOverlapBegin(UHitbox* OwnedHitbox, UHitbox* OtherHitbox) = 0;
 
 	/* This function will be called whenever a valid hitbox overlap has ended */
 	UFUNCTION(Category = "Hitbox")
-	virtual void OnHitboxOverlapEnd(AHitbox* OwnedHitbox, AHitbox* OtherHitbox) = 0;
+	virtual void OnHitboxOverlapEnd(UHitbox* OwnedHitbox, UHitbox* OtherHitbox) = 0;
 };
 
-
-
-
 UCLASS()
-class UNREALDEGENERATE_API AHitbox : public AActor
+class UNREALDEGENERATE_API UHitbox : public USceneComponent
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AHitbox();
-
-	virtual void Tick(float DeltaSeconds) override;
+	UHitbox();
 
 	/* Updates the Hitbox bounds from our actor location and adjusted scale */
 	void UpdateHitboxBoundsBasedOnPositionAndScale();
 
 	/* Method to check if our hitbox is intersecting with another hitbox */
-	bool IsHitboxIntersecting(AHitbox* OtherHitbox);
+	bool IsHitboxIntersecting(UHitbox* OtherHitbox);
 
 	/* Checks to see if this hitbox should trigger a begin overlap event */
-	bool IsBeginOverlap(AHitbox* OtherHitbox);
+	bool IsBeginOverlap(UHitbox* OtherHitbox);
 
 	/* Checks to see if this hitbox should generate an end overlap event*/
-	bool IsEndOverlap(AHitbox* OtherHitbox);
+	bool IsEndOverlap(UHitbox* OtherHitbox);
 
-	void AddHitboxToOverlapSet(AHitbox* OtherHitbox);
+	void AddHitboxToOverlapSet(UHitbox* OtherHitbox);
 
-	void RemoveHitboxFromOverlapSet(AHitbox* OtherHitbox);
+	void RemoveHitboxFromOverlapSet(UHitbox* OtherHitbox);
 
 protected:
 
@@ -97,6 +93,8 @@ private:
 	/* The box2d bounds of our collider */
 	FBox2D AssociatedBounds;
 
-	TSet<AHitbox*> OverlappingHitboxSet;
+	TSet<UHitbox*> OverlappingHitboxSet;
 };
+
+
 

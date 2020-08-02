@@ -7,66 +7,57 @@
  
 
 // Sets default values
-AHitbox::AHitbox()
+UHitbox::UHitbox()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
 	//Set default values here
 	AssignedHitboxType = EHitboxType::HITBOX;//Default will be assigned on start, but can also be assigned when spawned
 }
 
 
-void AHitbox::BeginPlay()
+void UHitbox::BeginPlay()
 {
 
 }
 
-//NOTE: This may need to be removed later in development but currently I am using it as a debug update
-void AHitbox::Tick(float DeltaSeconds)
-{
-	UpdateHitboxBoundsBasedOnPositionAndScale();
-	DebugDrawHitbox();
-}
 
 
 /* Update the bounds of our hitbox */
-void AHitbox::UpdateHitboxBoundsBasedOnPositionAndScale()
+void UHitbox::UpdateHitboxBoundsBasedOnPositionAndScale()
 {
-	FVector Position = GetActorLocation();
-	FVector HalfScale = (GetActorScale()) / 2.f;
+	FVector Position = GetOwner()->GetActorLocation();
+	FVector HalfScale = (GetOwner()->GetActorScale()) / 2.f;
 
 	AssociatedBounds.Min = FVector2D(Position.X - HalfScale.X, Position.Z - HalfScale.Z);
 	AssociatedBounds.Max = FVector2D(Position.X + HalfScale.X, Position.Z + HalfScale.Z);
 }
 
 // Check if we intersect with another hitbox actor
-bool AHitbox::IsHitboxIntersecting(AHitbox* OtherHitbox)
+bool UHitbox::IsHitboxIntersecting(UHitbox* OtherHitbox)
 {
 	return AssociatedBounds.Intersect(OtherHitbox->AssociatedBounds);
 }
 
 // Validate if we should call BeginOverlap
-bool AHitbox::IsBeginOverlap(AHitbox* Otherhitbox)
+bool UHitbox::IsBeginOverlap(UHitbox* Otherhitbox)
 {
 	return !OverlappingHitboxSet.Contains(Otherhitbox);
 }
 
 // Validate if we should call endoverlap
-bool AHitbox::IsEndOverlap(AHitbox* OtherHitbox)
+bool UHitbox::IsEndOverlap(UHitbox* OtherHitbox)
 {
 	return OverlappingHitboxSet.Contains(OtherHitbox);
 }
 
 //
-void AHitbox::AddHitboxToOverlapSet(AHitbox* OtherHitbox)
+void UHitbox::AddHitboxToOverlapSet(UHitbox* OtherHitbox)
 {
 	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Add(OtherHitbox);
 	else UE_LOG(LogTemp, Warning, TEXT("You are trying to add a hitbox that is already present"))
 }
 
 //
-void AHitbox::RemoveHitboxFromOverlapSet(AHitbox* OtherHitbox)
+void UHitbox::RemoveHitboxFromOverlapSet(UHitbox* OtherHitbox)
 {
 	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Remove(OtherHitbox);
 	else UE_LOG(LogTemp, Warning, TEXT("You are trying to remove a hitbox that was not found."));
@@ -74,9 +65,9 @@ void AHitbox::RemoveHitboxFromOverlapSet(AHitbox* OtherHitbox)
 
 #pragma region Debug Methods
 // Draw our hitbox in the world
-void AHitbox::DebugDrawHitbox()
+void UHitbox::DebugDrawHitbox()
 {
-	FVector ActorLocation = GetActorLocation();
+	FVector ActorLocation = GetOwner()->GetActorLocation();
 	FVector BR = FVector(AssociatedBounds.Max.X, ActorLocation.Y, AssociatedBounds.Min.Y);//Bottom Right
 	FVector BL = FVector(AssociatedBounds.Min.X, ActorLocation.Y, AssociatedBounds.Min.Y);//Bottom Left
 	FVector TR = FVector(AssociatedBounds.Max.X, ActorLocation.Y, AssociatedBounds.Max.Y);//Top Right
