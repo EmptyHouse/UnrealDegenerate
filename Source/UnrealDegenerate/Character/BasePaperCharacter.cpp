@@ -6,15 +6,13 @@
 // Sets default values
 ABasePaperCharacter::ABasePaperCharacter()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	BoxCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
 	SetRootComponent(BoxCollider);
 
 	SpriteFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Sprite"));
-	FAttachmentTransformRules AttachmentRules(EAttachmentRule::KeepWorld, false);
-	SpriteFlipbook->AttachToComponent(BoxCollider, AttachmentRules);
+	SpriteFlipbook->SetupAttachment(BoxCollider);
 
 	CharacterMovementComponent = CreateDefaultSubobject<UBaseCharacterMovementComponent>(TEXT("Movement Component"));
 	CharacterMovementComponent->SetPlaneConstraintNormal(FVector(1.f, 0.f, 1.f));
@@ -27,14 +25,12 @@ void ABasePaperCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	BoxCollider->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
-	CharacterMovementComponent->SetUpdatedComponent(BoxCollider);
 }
 
 // Called every frame
 void ABasePaperCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	CharacterMovementComponent->Velocity = FVector::OneVector;
 }
 
 // Called to bind functionality to input

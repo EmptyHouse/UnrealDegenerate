@@ -4,7 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "GamePlay/HitboxMechanics/Hitbox.h"
+#include "Gameplay/HitboxMechanics/HitboxManager.h"
+#include "Gameplay/DefaultPlayerBindings.h"
 #include "UnrealDegenerateGameModeBase.generated.h"
 
 /**
@@ -24,6 +25,9 @@ public:
 
 	/* Returns an instance of the Hitbox Manager that is being used for this round */
 	//UHitboxManager* GetHitboxManager() { return HitboxManager; }
+
+	UPROPERTY(EditDefaultsOnly)
+	UDefaultInputProperties* DefaultInputProperties;
 
 private:
 
