@@ -46,10 +46,30 @@ bool AHitbox::IsHitboxIntersecting(AHitbox* OtherHitbox)
 	return AssociatedBounds.Intersect(OtherHitbox->AssociatedBounds);
 }
 
-// Remove hitboxes if they are no longer valid
-void AHitbox::RemoveHitboxesThatAreNoLongerOverlapping()
+// Validate if we should call BeginOverlap
+bool AHitbox::IsBeginOverlap(AHitbox* Otherhitbox)
 {
-	
+	return !OverlappingHitboxSet.Contains(Otherhitbox);
+}
+
+// Validate if we should call endoverlap
+bool AHitbox::IsEndOverlap(AHitbox* OtherHitbox)
+{
+	return OverlappingHitboxSet.Contains(OtherHitbox);
+}
+
+//
+void AHitbox::AddHitboxToOverlapSet(AHitbox* OtherHitbox)
+{
+	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Add(OtherHitbox);
+	else UE_LOG(LogTemp, Warning, TEXT("You are trying to add a hitbox that is already present"))
+}
+
+//
+void AHitbox::RemoveHitboxFromOverlapSet(AHitbox* OtherHitbox)
+{
+	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Remove(OtherHitbox);
+	else UE_LOG(LogTemp, Warning, TEXT("You are trying to remove a hitbox that was not found."));
 }
 
 #pragma region Debug Methods

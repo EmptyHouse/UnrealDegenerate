@@ -7,6 +7,9 @@
 #include "GameFramework/Actor.h"
 #include "Hitbox.generated.h"
 
+
+DECLARE_DELEGATE_OneParam(FIntersectHitbox, AHitbox*);
+
 UENUM()
 enum EHitboxType
 {
@@ -14,7 +17,6 @@ enum EHitboxType
 	HITBOX,//Gives damage
 	HURTBOX,//Receives Damage. Cannot collide with other hurtboxes
 };
-
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -32,14 +34,17 @@ class UNREALDEGENERATE_API IHittable
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	/* This function will be called whenever a valid hitbox overlap has begun */
 	UFUNCTION(Category = "Hitbox")
-		/* This function will be called whenever a valid hitbox overlap has begun */
-		virtual void OnHitboxOverlapBegin(AHitbox* OwnedHitbox, AHitbox* OtherHitbox) = 0;
+	virtual void OnHitboxOverlapBegin(AHitbox* OwnedHitbox, AHitbox* OtherHitbox) = 0;
 
+	/* This function will be called whenever a valid hitbox overlap has ended */
 	UFUNCTION(Category = "Hitbox")
-		/* This function will be called whenever a valid hitbox overlap has ended */
-		virtual void OnHitboxOverlapEnd(AHitbox* OwnedHitbox, AHitbox* OtherHitbox) = 0;
+	virtual void OnHitboxOverlapEnd(AHitbox* OwnedHitbox, AHitbox* OtherHitbox) = 0;
 };
+
+
+
 
 UCLASS()
 class UNREALDEGENERATE_API AHitbox : public AActor
@@ -58,19 +63,28 @@ public:
 	/* Method to check if our hitbox is intersecting with another hitbox */
 	bool IsHitboxIntersecting(AHitbox* OtherHitbox);
 
+	/* Checks to see if this hitbox should trigger a begin overlap event */
+	bool IsBeginOverlap(AHitbox* OtherHitbox);
+
+	/* Checks to see if this hitbox should generate an end overlap event*/
+	bool IsEndOverlap(AHitbox* OtherHitbox);
+
+	void AddHitboxToOverlapSet(AHitbox* OtherHitbox);
+
+	void RemoveHitboxFromOverlapSet(AHitbox* OtherHitbox);
+
 protected:
 
 	void BeginPlay();
 
-	/* Draws a hitbox so that we can visually see where our hitbox is place in the world*/
+	/* Draws a hitbox so that we can visually see where our hitbox is place in the world */
 	void DebugDrawHitbox();
 
 private:
-	/* Removes the hitboxes that have been intersected with our hitbox if they are no longer valid */
-	void RemoveHitboxesThatAreNoLongerOverlapping();
-
 	/* The actor that can be hit */
 	IHittable* AssignedHittableActor;
+
+	FIntersectHitbox HitboxIntersect;
 
 private:
 	/* 
@@ -83,5 +97,6 @@ private:
 	/* The box2d bounds of our collider */
 	FBox2D AssociatedBounds;
 
-	
+	TSet<AHitbox*> OverlappingHitboxSet;
 };
+
