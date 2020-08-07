@@ -69,10 +69,14 @@ public:
 
 	void RemoveHitboxFromOverlapSet(UHitbox* OtherHitbox);
 
+	void SetHitboxOwner(IHittable* NewHitboxOwner);
+
+	/* Returns the IHittable owner of the hitbox */
+	IHittable* GetHitboxOwner() const { return AssignedHittableActor; }
+
 protected:
 
-	void BeginPlay();
-
+	UFUNCTION(Category=Debug)
 	/* Draws a hitbox so that we can visually see where our hitbox is place in the world */
 	void DebugDrawHitbox();
 
@@ -93,6 +97,7 @@ private:
 	/* The box2d bounds of our collider */
 	FBox2D AssociatedBounds;
 
+	/* Set of all the hitboxes that are currently overlapping with this hitbox */
 	TSet<UHitbox*> OverlappingHitboxSet;
 };
 

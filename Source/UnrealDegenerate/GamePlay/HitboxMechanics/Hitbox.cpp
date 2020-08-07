@@ -14,13 +14,6 @@ UHitbox::UHitbox()
 }
 
 
-void UHitbox::BeginPlay()
-{
-
-}
-
-
-
 /* Update the bounds of our hitbox */
 void UHitbox::UpdateHitboxBoundsBasedOnPositionAndScale()
 {
