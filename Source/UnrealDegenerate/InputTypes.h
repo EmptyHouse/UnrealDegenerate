@@ -7,23 +7,23 @@
 #include "InputTypes.generated.h"
 
 UENUM(BlueprintType)
-enum class InputActions : uint8
+enum class EInputActions : uint8
 {
-	Left UMETA(DisplayName = "Left"),
+	Left,
 	
-	Right UMETA(DisplayName = "Right"),
+	Right,
 
-	Up UMETA(DisplayName = "Up"),
+	Up,
 
-	Down UMETA(DisplayName = "Down"),
+	Down,
 
-	LightAttack UMETA(DisplayName = "Light Attack"),
+	LightAttack,
 
-	MediumAttack UMETA(DisplayName = "Medium Attack"),
+	MediumAttack,
 
-	HeavyAttack UMETA(DisplayName = "Heavy Attack"),
+	HeavyAttack,
 
-	Special UMETA(Display Name = "Special")
+	Special
 };
 
 USTRUCT(BlueprintType)
@@ -35,20 +35,16 @@ struct FPlayerInputPacket
 
 	uint8 PlayerIndex;
 
-	uint32 FrameNumber;
-
 	// Pattern: 
 		// Bit 0: LP
 		// Bit 1: MP
 		// Bit 2: HP
-		// Bit 3: LK
-		// Bit 4: MK
-		// Bit 5: HK
-		// Bit 6: Left Directional Input
-		// Bit 7: Right Directional Input
-		// Bit 8: Up Directional Input
-		// Bit 9: Down Directional Input
-	uint16 InputPattern;
+		// Bit 3: SP
+		// Bit 4: Left Directional Input
+		// Bit 5: Right Directional Input
+		// Bit 6: Up Directional Input
+		// Bit 7: Down Directional Input
+	uint8 InputPattern;
 
 	/// <summary>
 	///  Returns true if this input packet is relevant (i.e. A valid input was recorded during the frame)
