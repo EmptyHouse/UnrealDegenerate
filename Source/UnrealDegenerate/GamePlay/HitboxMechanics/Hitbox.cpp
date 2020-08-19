@@ -42,7 +42,7 @@ bool UHitbox::IsEndOverlap(UHitbox* OtherHitbox)
 	return OverlappingHitboxSet.Contains(OtherHitbox);
 }
 
-//
+// 
 void UHitbox::AddHitboxToOverlapSet(UHitbox* OtherHitbox)
 {
 	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Add(OtherHitbox);
@@ -54,6 +54,12 @@ void UHitbox::RemoveHitboxFromOverlapSet(UHitbox* OtherHitbox)
 {
 	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Remove(OtherHitbox);
 	else UE_LOG(LogTemp, Warning, TEXT("You are trying to remove a hitbox that was not found."));
+}
+
+
+void UHitbox::SetHitboxOwner(IHittable* NewHitboxOwner)
+{
+	HitboxOwner = NewHitboxOwner;
 }
 
 #pragma region Debug Methods
@@ -87,5 +93,10 @@ void UHitbox::DebugDrawHitbox()
 	DrawDebugLine(GetWorld(), TL, TR, DebugColor, false, 0, 0, 1.f);
 	DrawDebugLine(GetWorld(), TR, BR, DebugColor, false, 0, 0, 1.f);
 
+}
+
+void UHitbox::SetDebugDraw(bool ShouldDrawHitbox)
+{
+	
 }
 #pragma endregion Debug Methods

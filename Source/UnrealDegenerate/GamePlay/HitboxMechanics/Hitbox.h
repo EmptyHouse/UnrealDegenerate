@@ -72,17 +72,11 @@ public:
 	void SetHitboxOwner(IHittable* NewHitboxOwner);
 
 	/* Returns the IHittable owner of the hitbox */
-	IHittable* GetHitboxOwner() const { return AssignedHittableActor; }
-
-protected:
-
-	UFUNCTION(Category=Debug)
-	/* Draws a hitbox so that we can visually see where our hitbox is place in the world */
-	void DebugDrawHitbox();
+	IHittable* GetHitboxOwner() const { return HitboxOwner; }
 
 private:
 	/* The actor that can be hit */
-	IHittable* AssignedHittableActor;
+	IHittable* HitboxOwner;
 
 	FIntersectHitbox HitboxIntersect;
 
@@ -91,7 +85,7 @@ private:
 	* The assigned type of our hitbox 
 	* NOTE: this value should only be set once. Can not be reassigned after creation
 	*/
-	UPROPERTY(EditDefaultsOnly, Category = "Hitbox", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = Hitbox, meta = (AllowPrivateAccess = "true"))
 	TEnumAsByte<EHitboxType> AssignedHitboxType;
 
 	/* The box2d bounds of our collider */
@@ -99,6 +93,19 @@ private:
 
 	/* Set of all the hitboxes that are currently overlapping with this hitbox */
 	TSet<UHitbox*> OverlappingHitboxSet;
+
+
+	/**************** Debug Functions **************/
+public:
+	UFUNCTION(BlueprintCallable, Category = Debug)
+	/* Sets whether or not we should draw our hitboxes in the scene. Good for debugging. Possibly might be good for a practice mode in the future*/
+	void SetDebugDraw(bool ShouldDrawDebugHitbox);
+
+protected:
+	UFUNCTION(Category = Debug)
+	/* Draws a hitbox so that we can visually see where our hitbox is place in the world */
+	void DebugDrawHitbox();
+
 };
 
 
