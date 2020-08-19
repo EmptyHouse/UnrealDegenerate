@@ -9,21 +9,23 @@
 UENUM(BlueprintType)
 enum class EInputActions : uint8
 {
-	Left,
-	
-	Right,
+	None UMETA(Hidden),
 
-	Up,
+	Left = 0x15,
 
-	Down,
+	Right = 0x20,
 
-	LightAttack,
+	Up = 0x40,
 
-	MediumAttack,
+	Down = 0x80,
 
-	HeavyAttack,
+	LightAttack = 0x01,
 
-	Special
+	MediumAttack = 0x02,
+
+	HeavyAttack = 0x04,
+
+	Special = 0x08
 };
 
 USTRUCT(BlueprintType)
