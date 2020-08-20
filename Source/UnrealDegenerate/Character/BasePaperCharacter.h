@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "../InputTypes.h"
 #include "BaseCharacterMovementComponent.h"
 #include "PaperFlipbookComponent.h"
 #include "Components/BoxComponent.h"
@@ -18,6 +19,9 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePaperCharacter();
 
+	UPROPERTY(EditDefaultsOnly)
+	UBaseCharacterMovementComponent* CharacterMovementComponent;
+
 protected:
 
 	UPROPERTY(EditAnywhere)
@@ -26,18 +30,16 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UPaperFlipbookComponent* SpriteFlipbook;
 
-	UPROPERTY(EditAnywhere)
-	UBaseCharacterMovementComponent* CharacterMovementComponent;
-
 protected:
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void ProcessPlayerInputPacket(const FPlayerInputPacket& InputPacketToExecute);
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 };

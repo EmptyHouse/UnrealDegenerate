@@ -11,7 +11,7 @@ enum class EInputActions : uint8
 {
 	None UMETA(Hidden),
 
-	Left = 0x10,
+	Left = 0x15,
 
 	Right = 0x20,
 

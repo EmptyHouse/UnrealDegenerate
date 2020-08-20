@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "../InputTypes.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "BaseCharacterMovementComponent.generated.h"
 

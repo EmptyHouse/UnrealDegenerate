@@ -2,6 +2,7 @@
 
 
 #include "BasePaperCharacter.h"
+#include "BasePlayerController.h"
 
 // Sets default values
 ABasePaperCharacter::ABasePaperCharacter()
@@ -25,17 +26,22 @@ void ABasePaperCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	BoxCollider->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+
+	ABasePlayerController* PlayerController = Cast<ABasePlayerController>(GetController());
+	if (PlayerController)
+	{
+		PlayerController->OnPlayerPacketReady.AddDynamic(this, &ABasePaperCharacter::ProcessPlayerInputPacket);
+	}
+}
+
+void ABasePaperCharacter::ProcessPlayerInputPacket(const FPlayerInputPacket& InputPacketToExecute)
+{
+	UE_LOG(LogTemp,Warning,TEXT("Pattern: %d"), InputPacketToExecute.InputPattern)
 }
 
 // Called every frame
 void ABasePaperCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-}
-
-// Called to bind functionality to input
-void ABasePaperCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 

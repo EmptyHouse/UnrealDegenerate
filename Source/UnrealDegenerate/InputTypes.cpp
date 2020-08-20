@@ -2,8 +2,3 @@
 
 
 #include "InputTypes.h"
-
-bool FPlayerInputPacket::ShouldBeProcessed()
-{
-	return InputPattern > 0;
-}
