@@ -27,7 +27,7 @@ class UHittable : public UInterface
 
 
 /**
- *
+ * This is the interface for actors that can receive or give hits
  */
 class UNREALDEGENERATE_API IHittable
 {
@@ -36,13 +36,14 @@ class UNREALDEGENERATE_API IHittable
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	/* This function will be called whenever a valid hitbox overlap has begun */
-	UFUNCTION(Category = "Hitbox")
-	virtual void OnHitboxOverlapBegin(UHitbox* OwnedHitbox, UHitbox* OtherHitbox) = 0;
+	UFUNCTION(BlueprintImplementableEvent, Category = Hitbox)
+	void OnHitboxOverlapBegin(UHitbox* OwnedHitbox, UHitbox* OtherHitbox);
 
 	/* This function will be called whenever a valid hitbox overlap has ended */
-	UFUNCTION(Category = "Hitbox")
-	virtual void OnHitboxOverlapEnd(UHitbox* OwnedHitbox, UHitbox* OtherHitbox) = 0;
+	UFUNCTION(BlueprintImplementableEvent, Category = Hitbox)
+	void OnHitboxOverlapEnd(UHitbox* OwnedHitbox, UHitbox* OtherHitbox);
 };
+
 
 UCLASS()
 class UNREALDEGENERATE_API UHitbox : public USceneComponent
@@ -53,6 +54,8 @@ public:
 	// Sets default values for this actor's properties
 	UHitbox();
 
+	virtual void BeginPlay() override;
+
 	/* Updates the Hitbox bounds from our actor location and adjusted scale */
 	void UpdateHitboxBoundsBasedOnPositionAndScale();
 
@@ -62,13 +65,22 @@ public:
 	/* Checks to see if this hitbox should trigger a begin overlap event */
 	bool IsBeginOverlap(UHitbox* OtherHitbox);
 
-	/* Checks to see if this hitbox should generate an end overlap event*/
+	/* Checks to see if this hitbox should generate an end overlap event */
 	bool IsEndOverlap(UHitbox* OtherHitbox);
 
+	/* This method will be called when we begin overlap with another hitbox */
+	void BeginHitboxOverlap(UHitbox* OtherHitbox);
+
+	/* This method will be called when we end overlap with another hitbox */
+	void EndHitboxOverlap(UHitbox* OtherHitbox);
+
+	/* Safely adds a hitbox to our hitbox overlap set */
 	void AddHitboxToOverlapSet(UHitbox* OtherHitbox);
 
+	/* Safely removes a hitbox from our overlap hitbox set*/
 	void RemoveHitboxFromOverlapSet(UHitbox* OtherHitbox);
 
+	/* Set this hitbox owner */
 	void SetHitboxOwner(IHittable* NewHitboxOwner);
 
 	/* Returns the IHittable owner of the hitbox */
@@ -78,6 +90,7 @@ private:
 	/* The actor that can be hit */
 	IHittable* HitboxOwner;
 
+	/*  */
 	FIntersectHitbox HitboxIntersect;
 
 private:
