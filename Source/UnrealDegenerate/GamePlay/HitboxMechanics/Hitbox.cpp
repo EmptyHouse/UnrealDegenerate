@@ -13,8 +13,14 @@ UHitbox::UHitbox()
 	AssignedHitboxType = EHitboxType::HITBOX;//Default will be assigned on start, but can also be assigned when spawned
 }
 
+void UHitbox::BeginPlay()
+{
+	if (IHittable* HittableParent = Cast<IHittable>(GetOwner()))
+	{
+		SetHitboxOwner(HittableParent);
+	}
+}
 
-/* Update the bounds of our hitbox */
 void UHitbox::UpdateHitboxBoundsBasedOnPositionAndScale()
 {
 	FVector Position = GetOwner()->GetActorLocation();
@@ -24,38 +30,56 @@ void UHitbox::UpdateHitboxBoundsBasedOnPositionAndScale()
 	AssociatedBounds.Max = FVector2D(Position.X + HalfScale.X, Position.Z + HalfScale.Z);
 }
 
-// Check if we intersect with another hitbox actor
 bool UHitbox::IsHitboxIntersecting(UHitbox* OtherHitbox)
 {
 	return AssociatedBounds.Intersect(OtherHitbox->AssociatedBounds);
 }
 
-// Validate if we should call BeginOverlap
 bool UHitbox::IsBeginOverlap(UHitbox* Otherhitbox)
 {
 	return !OverlappingHitboxSet.Contains(Otherhitbox);
 }
 
-// Validate if we should call endoverlap
 bool UHitbox::IsEndOverlap(UHitbox* OtherHitbox)
 {
 	return OverlappingHitboxSet.Contains(OtherHitbox);
 }
 
-// 
+void UHitbox::BeginHitboxOverlap(UHitbox* OtherHitbox)
+{
+	AddHitboxToOverlapSet(OtherHitbox);
+	HitboxOwner->OnHitboxOverlapBegin(this, OtherHitbox);
+}
+
+void UHitbox::EndHitboxOverlap(UHitbox* OtherHitbox)
+{
+	RemoveHitboxFromOverlapSet(OtherHitbox);
+	HitboxOwner->OnHitboxOverlapEnd(this, OtherHitbox);
+}
+
 void UHitbox::AddHitboxToOverlapSet(UHitbox* OtherHitbox)
 {
-	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Add(OtherHitbox);
-	else UE_LOG(LogTemp, Warning, TEXT("You are trying to add a hitbox that is already present"))
+	if (OverlappingHitboxSet.Contains(OtherHitbox))
+	{
+		OverlappingHitboxSet.Add(OtherHitbox);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("You are trying to add a hitbox that is already present"))
+	}
 }
 
-//
 void UHitbox::RemoveHitboxFromOverlapSet(UHitbox* OtherHitbox)
 {
-	if (OverlappingHitboxSet.Contains(OtherHitbox)) OverlappingHitboxSet.Remove(OtherHitbox);
-	else UE_LOG(LogTemp, Warning, TEXT("You are trying to remove a hitbox that was not found."));
+	if (OverlappingHitboxSet.Contains(OtherHitbox))
+	{
+		OverlappingHitboxSet.Remove(OtherHitbox);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("You are trying to remove a hitbox that was not found."));
+	}
 }
-
 
 void UHitbox::SetHitboxOwner(IHittable* NewHitboxOwner)
 {
